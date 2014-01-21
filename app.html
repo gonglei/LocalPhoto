@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" data-ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Local Photo Test</title>
+</head>
+<body data-ng-controller="TestCtrl">
+	<h1>Local Photo Directive Test</h1>
+	<h1 style="color:white;background-color:blue" data-ng-show="loading">Loading Photo...</h1>
+	<div data-ng-repeat="photo in photos">
+		<hr />
+		<h2>Photo {{$index + 1}}</h2>
+		<div>File Name: {{photo.fileName}} File Type: {{photo.fileType}}</div>
+		<div>dataUrl: {{photo.dataUrl}}</div>
+		<div data-local-photo
+			data-on-load-begin="photoLoadBegin(file, $index)"
+			data-on-load-end="photoLoadEnd(data, $index)">
+		</div>
+	</div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+	<script src="./app.js"></script>
+	<script src="./localphoto.js"></script>
+</body>
+</html>
