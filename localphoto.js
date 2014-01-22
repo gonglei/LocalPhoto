@@ -38,21 +38,21 @@
         			: [1024, 768];
         	}
 
-	        function fileChanged (e) {
-	        	var file = e.target.files[0];
+	        function fileChanged (event) {
+	        	var file = event.target.files[0];
 	        	scope.file = file;
 	        	scope.$apply(function(){
 		        	scope.onLoadBegin({file: file});
 	        	});
 	            var reader = new window.FileReader();
-	            reader.onload = function (e) { fetch(e.target.result); }
+	            reader.onload = function (e) { fetch(e.target.result); };
 	            reader.readAsDataURL(file);
 	        }
 
 	        function fetch (dataUrl) {
 	        	scope.imgDataUrl = dataUrl;
 	            var img = new Image();
-	            img.onload = function () { draw(img); }
+	            img.onload = function () { draw(img); };
 	            img.src = dataUrl;
 	        }
 
