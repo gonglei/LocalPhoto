@@ -10,12 +10,22 @@
 	<div data-ng-repeat="photo in photos">
 		<hr />
 		<h2>Photo {{$index + 1}}</h2>
-		<div>File Name: {{photo.fileName}} File Type: {{photo.fileType}}</div>
-		<div>dataUrl: {{photo.dataUrl}}</div>
-		<div data-local-photo
+		<div>File Name: {{photo.fileName}} [type: {{photo.fileType}}]</div>
+		<h3>Canvas {{$index + 1}}</h3>
+		<div>dataUrl: [{{photo.showDataUrl.length}}B] 
+			{{photo.showDataUrl.slice(0, 50)}}...{{photo.showDataUrl.slice(-50)}}</div>
+		<div data-local-photo data-show-size="800600" data-save-size="1024x768"
 			data-on-load-begin="photoLoadBegin(file, $index)"
 			data-on-load-end="photoLoadEnd(data, $index)">
 		</div>
+		<h3>Save Photo {{$index + 1}}</h3>
+		<div>dataUrl: [{{photo.saveDataUrl.length}}B] 
+			{{photo.saveDataUrl.slice(0, 50)}}...{{photo.saveDataUrl.slice(-50)}}</div>
+		<img ng-src="{{photo.saveDataUrl}}" />
+		<h3>Original Photo {{$index + 1}}</h3>
+		<div>dataUrl: [{{photo.imgDataUrl.length}}B] 
+			{{photo.imgDataUrl.slice(0, 50)}}...{{photo.imgDataUrl.slice(-50)}}</div>
+		<img ng-src="{{photo.imgDataUrl}}" />
 	</div>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>

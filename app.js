@@ -13,14 +13,14 @@
   		$scope.photos = [{}, {}];
   		$scope.photoLoadBegin = function (file, idx) {
   			$scope.loading = true;
-  			//$scope.$apply();
   		}
   		$scope.photoLoadEnd = function (data, idx) {
   			$scope.photos[idx].fileName = data.file.name;
   			$scope.photos[idx].fileType = data.file.type;
-  			$scope.photos[idx].dataUrl = data.dataUrl;
+  			$scope.photos[idx].showDataUrl = data.showDataUrl;
+  			$scope.photos[idx].saveDataUrl = data.saveDataUrl;
+  			$scope.photos[idx].imgDataUrl = data.imgDataUrl;
   			$scope.loading = false;
-  			//$scope.$apply();
   		}
 	}
 })(angular);
