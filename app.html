@@ -14,7 +14,8 @@
 		<h3>Canvas {{$index + 1}}</h3>
 		<div>dataUrl: [{{photo.showDataUrl.length}}B] 
 			{{photo.showDataUrl.slice(0, 50)}}...{{photo.showDataUrl.slice(-50)}}</div>
-		<div data-local-photo data-show-size="800x600" data-save-size="1024x768"
+		<div data-local-photo="{{$index + 1}}" 
+			data-show-size="400x300" data-save-size="1024x768"
 			data-on-load-begin="photoLoadBegin(file, $index)"
 			data-on-load-end="photoLoadEnd(data, $index)">
 		</div>

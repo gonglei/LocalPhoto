@@ -13,8 +13,9 @@
             template: '<div><input type="file" /><br/><canvas /></div>',
             link: link,
             scope: {
-                //showSize: '@',
-                //saveSize: '@',
+                thisId: '@localPhoto',
+                showSize: '@',
+                saveSize: '@',
                 onLoadBegin: '&',
                 onLoadEnd: '&',
             }
@@ -24,18 +25,21 @@
 
         function link(scope, element, attrs) {
             var canvas = element.find('canvas')[0],
-        		fileInput = element.find('input')[0];
+        		fileInput = element.find('input')[0],
+        		defaultSize = [1024, 768];
 
             init();
             angular.element(fileInput).bind('change', fileChanged);
 
             function init() {
-                scope.showSize = attrs.showSize && attrs.showSize.split('x').length === 2
-        			? [+attrs.showSize.split('x')[0], +attrs.showSize.split('x')[1]]
-        			: [element[0].clientWidth, element[0].clientWidth * 3 / 4];
-                scope.saveSize = attrs.saveSize && attrs.saveSize.split('x').length === 2
-        			? [+attrs.saveSize.split('x')[0], +attrs.saveSize.split('x')[1]]
-        			: [1024, 768];
+	            attrs.$observe('localPhoto', function(newVal) {
+	            	scope.thisId = newVal;
+	            });
+            }
+
+            function parseSize(size, auto) {
+            	return size && size.split('x').length === 2 ? [+size.split('x')[0], +size.split('x')[1]] :
+	        			auto ? [element[0].clientWidth, element[0].clientWidth * 3 / 4] : defaultSize;
             }
 
             function fileChanged(event) {
@@ -58,12 +62,9 @@
 
             function draw(img) {
                 var ctx = canvas.getContext('2d');
-                if (!scope.showSize[0]) {  // element could not be rendered when init()
-                    scope.showSize[0] = element[0].clientWidth || 400;
-                    scope.showSize[1] = scope.showSize[0] * 3 / 4;
-                }
+                var size = parseSize(scope.showSize);
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                canvas.width = img.width < scope.showSize[0] ? img.width : scope.showSize[0];
+                canvas.width = img.width < size[0] ? img.width : size[0];
                 canvas.height = canvas.width * img.height / img.width;
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                 scope.$apply(function () {
@@ -81,7 +82,8 @@
             function getSaveDataUrl(img) {
                 var cvs = document.createElement("canvas");
                 var ctx = cvs.getContext('2d');
-                cvs.width = scope.saveSize[0];
+                var size = parseSize(scope.saveSize);
+                cvs.width = size[0];
                 cvs.height = cvs.width * img.height / img.width;
                 ctx.drawImage(img, 0, 0, cvs.width, cvs.height);
                 return cvs.toDataURL(scope.file.type);
