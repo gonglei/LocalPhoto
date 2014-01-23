@@ -3,7 +3,7 @@
 (function(angular){
 	'use strict';
 
-	angular.module('app', ['shared.directive']);
+	angular.module('app', ['shared.localphoto']);
 
 	angular.module('app')
 	.controller('TestCtrl', ['$scope', testCtrl]);
