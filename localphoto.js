@@ -1,4 +1,8 @@
-// local photo directive
+/* ===============================================================================
+ * LocalPhoto: localphoto.js
+ * Copyright 2014 Lei Gong
+ * Licensed under MIT (https://github.com/gonglei/LocalPhoto/blob/master//LICENSE)
+ * =============================================================================== */
 
 (function (angular, window, document) {
     "use strict";
